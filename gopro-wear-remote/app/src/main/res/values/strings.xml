@@ -4,5 +4,6 @@
     <string name="app_name">GoPro Wear Remote</string>
     <string name="hello_gopro_wear_remote">Hello GoPro Wear Remote!</string>
     <string name="action_settings">Settings</string>
+    <string name="show_notificaion">show notificaion</string>
 
 </resources>
