@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="classes1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/gopro-wear-remote/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

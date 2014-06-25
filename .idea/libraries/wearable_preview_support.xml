@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="wearable-preview-support">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/gopro-wear-remote/app/libs/wearable-preview-support.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

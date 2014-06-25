@@ -45,12 +45,15 @@ public class GoProNotificaionManager {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(getContext())
                         .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle("Photo mode")
-                        .setContentText("Take a picture")
-                        .addAction(R.drawable.ic_launcher, "take photo",
+                        .setContentTitle(getContext().getString(R.string.notification_title_photo))
+                        .setContentText(getContext().getString(R.string.notification_content_photo))
+                        .addAction(R.drawable.ic_launcher,
+                                getContext().getString(R.string.gopro_action_take_photo),
                                 getActionPendingIntent(GoProAction.TAKE_PHOTO))
-                        .addAction(android.R.drawable.ic_menu_revert, "back",
-                                getShowDefaultNotificationPendingIntent())
+                        .addAction(android.R.drawable.ic_menu_revert, getContext().getString(
+                                        R.string.notification_back),
+                                getShowDefaultNotificationPendingIntent()
+                        )
                         .setDeleteIntent(getActionDismissedPendingIntent());
 
         Notification n1 = new WearableNotifications.Builder(notificationBuilder)
@@ -64,7 +67,12 @@ public class GoProNotificaionManager {
                 new NotificationCompat.Builder(getContext())
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setAutoCancel(true)
-                        .setContentTitle("GoPro Remote is running");
+                        .setContentTitle(
+                                getContext().getString(
+                                        R.string.notification_title_gopro_device)
+                        ).setContentText(
+                        getContext().getString(R.string.notification_content_gopro_device));
+
         Notification summary = new WearableNotifications.Builder(summaryBuilder)
                 .setGroup(GROUP_ID, WearableNotifications.GROUP_ORDER_SUMMARY)
                 .build();
@@ -73,11 +81,17 @@ public class GoProNotificaionManager {
         NotificationCompat.Builder modeNotificationBuilder =
                 new NotificationCompat.Builder(getContext())
                         .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle("GoPro Remote")
-                        .setContentText("Take photos or videos with your wrist. Choose a mode")
-                        .addAction(android.R.drawable.ic_menu_camera, "switch to photo",
+                        .setContentTitle(getContext().getString(
+                                R.string.notification_title_gopro_wear_remote))
+                        .setContentText(
+                                getContext().getString(
+                                        R.string.notification_content_gopro_wear)
+                        )
+                        .addAction(android.R.drawable.ic_menu_camera,
+                                getContext().getString(R.string.gopro_action_mode_photo),
                                 getSwitchModePendingIntent(1, GoProAction.SWITCH_TO_PHOTO))
-                        .addAction(android.R.drawable.ic_menu_slideshow, "switch to video",
+                        .addAction(android.R.drawable.ic_menu_slideshow,
+                                getContext().getString(R.string.gopro_action_mode_video),
                                 getSwitchModePendingIntent(1, GoProAction.SWITCH_TO_VIDEO));
 
         Notification mode = new WearableNotifications.Builder(modeNotificationBuilder)
@@ -89,12 +103,15 @@ public class GoProNotificaionManager {
         NotificationCompat.Builder moreNotificationBuilder =
                 new NotificationCompat.Builder(getContext())
                         .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle("More...")
-                        .setContentText("Additional Actions")
-                        .addAction(R.drawable.ic_launcher, "On",
+                        .setContentTitle(getContext().getString(R.string.notification_title_more))
+                        .setContentText(getContext().getString(R.string.notification_content_more))
+                        .addAction(R.drawable.ic_launcher,
+                                getContext().getString(R.string.gopro_action_on),
                                 getActionPendingIntent(GoProAction.POWER_ON))
-                        .addAction(R.drawable.ic_launcher, "Off",
-                                getActionPendingIntent(GoProAction.POWER_OFF))
+                        .addAction(R.drawable.ic_launcher, getContext().getString(
+                                        R.string.gopro_action_off),
+                                getActionPendingIntent(GoProAction.POWER_OFF)
+                        )
                         .setDeleteIntent(getActionDismissedPendingIntent());
 
         Notification n1 = new WearableNotifications.Builder(moreNotificationBuilder)
@@ -110,14 +127,20 @@ public class GoProNotificaionManager {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(getContext())
                         .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle("Video mode")
-                        .setContentText("Take a video")
-                        .addAction(R.drawable.ic_launcher, "start video",
+                        .setContentTitle(getContext().getString(R.string.notification_title_video))
+                        .setContentText(getContext().getString(
+                                R.string.notification_title_content_video))
+                        .addAction(R.drawable.ic_launcher,
+                                getContext().getString(R.string.gopro_action_start_video),
                                 getActionPendingIntent(GoProAction.START_VIDEO))
-                        .addAction(R.drawable.ic_launcher, "stop video",
-                                getActionPendingIntent(GoProAction.STOP_VIDEO))
-                        .addAction(android.R.drawable.ic_menu_revert, "back",
-                                getShowDefaultNotificationPendingIntent())
+                        .addAction(R.drawable.ic_launcher, getContext().getString(
+                                        R.string.gopro_action_stop_video),
+                                getActionPendingIntent(GoProAction.STOP_VIDEO)
+                        )
+                        .addAction(android.R.drawable.ic_menu_revert, getContext().getString(
+                                        R.string.notification_back),
+                                getShowDefaultNotificationPendingIntent()
+                        )
                         .setDeleteIntent(getActionDismissedPendingIntent());
 
         Notification n1 = new WearableNotifications.Builder(notificationBuilder)

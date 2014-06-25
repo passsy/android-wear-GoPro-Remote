@@ -1,31 +1,22 @@
 package com.pascalwelsch.goprowearremote.ui.home;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.pascalwelsch.goprowearremote.R;
 import com.pascalwelsch.goprowearremote.net.GoProAction;
-import com.pascalwelsch.goprowearremote.net.GoProNotificationCmdReceiver;
 import com.pascalwelsch.goprowearremote.ui.notifications.GoProNotificaionManager;
 import com.pascalwelsch.goprowearremote.utils.ViewHelper;
 
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.os.Bundle;
-import android.preview.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, Response.ErrorListener {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
-
-    private View mButton;
 
     private GoProNotificaionManager mNoticiationManager;
 
@@ -62,7 +53,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Resp
         super.onCreate(savedInstanceState);
 
         mNoticiationManager = GoProNotificaionManager.from(getActivity());
-
         mRequestQueue = Volley.newRequestQueue(getActivity());
     }
 
@@ -78,11 +68,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Resp
                 R.id.mode_photo,
                 R.id.mode_video);
         return rootView;
-    }
-
-    @Override
-    public void onErrorResponse(final VolleyError volleyError) {
-        Log.v(TAG, volleyError.toString());
     }
 
     private void fireGoProCommand(final String sh, final String s) {
