@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="debug">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/gopro-wear-remote/app/build/intermediates/pre-dexed/debug/classes-d804724903d05bf320909d3c5b048f72fe65bd1c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gopro-wear-remote/app/build/intermediates/pre-dexed/debug/classes-fbe227ad00518909f1000aaf0263cb12de3dc4fd.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gopro-wear-remote/app/build/intermediates/pre-dexed/debug/gson-2.2.4-5f275726250ac4dc50a9e648bde8b16ac66ffd0d.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gopro-wear-remote/app/build/intermediates/pre-dexed/debug/wearable-preview-support-c6f1d058f69e397a26f1fa767ca202561a5892ae.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gopro-wear-remote/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-fe930dc68beb1e566675ce71b270d4091c6c249b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gopro-wear-remote/app/build/intermediates/pre-dexed/debug/annotations-12.0-8b3a7d4bb2c8a697984a2391a8885fd1d7798745.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
