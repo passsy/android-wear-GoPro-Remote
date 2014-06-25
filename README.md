@@ -5,7 +5,12 @@ Android Wear Application to control a GoPro with wifi commands (known as [wifi h
 
 This Application was created for the [Android Wear Hackathon](https://plus.google.com/events/ckeil3ivmdq5qokdmj75tbarpvc) by [GDG Düsseldorf](https://plus.google.com/107373371386267684213/)
 
+## Restrictions
 
+Only tested with GoPro Hero 3
+
+
+## Screenshots
 
 <div align="center">
   <img height="160px" src="https://lh3.googleusercontent.com/-rvwA_3GwggE/U6pyVygD-LI/AAAAAAAAVfs/w2GI6_O8C8g/w318-h317-no/Screen+Shot+2014-06-25+at+08.55.03.png"/>
