@@ -1,25 +1,35 @@
 package com.pascalwelsch.goprowearremote.ui.home;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.pascalwelsch.goprowearremote.R;
+import com.pascalwelsch.goprowearremote.net.GoProAction;
+import com.pascalwelsch.goprowearremote.net.GoProNotificationCmdReceiver;
+import com.pascalwelsch.goprowearremote.ui.notifications.GoProNotificaionManager;
 import com.pascalwelsch.goprowearremote.utils.ViewHelper;
 
-import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preview.support.v4.app.NotificationManagerCompat;
-import android.preview.support.wearable.notifications.WearableNotifications;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener, Response.ErrorListener {
+
+    private static final String TAG = HomeFragment.class.getSimpleName();
 
     private View mButton;
 
-    private NotificationManagerCompat mNotificationManager;
+    private GoProNotificaionManager mNoticiationManager;
+
+    private RequestQueue mRequestQueue;
 
     public HomeFragment() {
     }
@@ -28,7 +38,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.show_notificaion_btn:
-                showSimpleWearNotification();
+                mNoticiationManager.showStartNotification();
+                break;
+            case R.id.take_photo_btn:
+                fireGoProCommand("SH", "01");
+                break;
+            case R.id.stop_video_btn:
+                fireGoProCommand("SH", "00");
+                break;
+            case R.id.mode_photo:
+                fireGoProCommand("CM", "01");
+                break;
+            case R.id.mode_video:
+                fireGoProCommand("CM", "00");
                 break;
             default:
                 Toast.makeText(getActivity(), "not implemented", Toast.LENGTH_SHORT).show();
@@ -39,38 +61,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mNoticiationManager = GoProNotificaionManager.from(getActivity());
 
-        // Get an instance of the NotificationManager service
-        mNotificationManager =
-                NotificationManagerCompat.from(getActivity());
+        mRequestQueue = Volley.newRequestQueue(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        ViewHelper.setonClickListenerForViews(rootView, this, R.id.show_notificaion_btn);
+        ViewHelper.setonClickListenerForViews(
+                rootView, this,
+                R.id.show_notificaion_btn,
+                R.id.take_photo_btn,
+                R.id.stop_video_btn,
+                R.id.mode_photo,
+                R.id.mode_video);
         return rootView;
     }
 
-    private void showSimpleWearNotification() {
-        // Create a NotificationCompat.Builder for standard notification features
-        // TODO
-        final PendingIntent photoPendingIntent = null;
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(getActivity())
-                        .setContentTitle("New mail from John Doe")
-                        .setContentText(getString(R.string.hello_gopro_wear_remote))
-                        .addAction(R.drawable.ic_launcher, "take photo", photoPendingIntent)
-                        .setSmallIcon(R.drawable.ic_launcher);
+    @Override
+    public void onErrorResponse(final VolleyError volleyError) {
+        Log.v(TAG, volleyError.toString());
+    }
 
-        // Create a WearablesNotification.Builder to add special functionality for wearables
-        Notification notification =
-                new WearableNotifications.Builder(notificationBuilder)
-                        .setHintHideIcon(true)
-                        .build();
-
-        // Build the notification and issues it with notification manager.
-        mNotificationManager.notify(1, notification);
+    private void fireGoProCommand(final String sh, final String s) {
+        GoProAction.fireGoProCommand(sh, s, false, mRequestQueue);
     }
 }
