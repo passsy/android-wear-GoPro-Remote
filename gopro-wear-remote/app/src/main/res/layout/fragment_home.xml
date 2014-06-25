@@ -8,10 +8,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".HomeActivity$PlaceholderFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_gopro_wear_remote" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter your wifi password of the app won't work" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/wifi_password"
+            android:password="true" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,29 +35,32 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+
         <Button
             android:id="@+id/show_notificaion_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:text="@string/show_notificaion" />
 
         <Button
             android:id="@+id/take_photo_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="shutter" />
+            android:text="@string/gopro_action_take_photo" />
 
         <Button
             android:id="@+id/stop_video_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="stop" />
+            android:text="@string/gopro_action_stop_video" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="MODE" />
+            android:layout_marginTop="24dp"
+            android:text="@string/choose_mode"
+            android:textAllCaps="true" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -54,13 +71,13 @@
                 android:id="@+id/mode_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Photo" />
+                android:text="@string/notification_title_photo" />
 
             <Button
                 android:id="@+id/mode_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Video" />
+                android:text="@string/notification_title_video" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

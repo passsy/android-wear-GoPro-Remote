@@ -7,6 +7,7 @@ import com.pascalwelsch.goprowearremote.ui.notifications.GoProNotificaionManager
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,8 +19,6 @@ public class GoProNotificationCmdReceiver extends BroadcastReceiver {
 
 
     public static final String EXTRA_LOG_MESSAGE = "log_message";
-
-    public static final String EXTRA_NOTIFICATION_ID = "notification_id";
 
     public static final int EXTRA_TYPE_MODE = 20;
 
@@ -44,6 +43,8 @@ public class GoProNotificationCmdReceiver extends BroadcastReceiver {
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
         final GoProNotificaionManager notificaionManager = GoProNotificaionManager
                 .from(context);
+        final String password = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("password", "goprohero");
 
         final int type = intent.getExtras().getInt(TYPE);
         switch (type) {
@@ -53,16 +54,14 @@ public class GoProNotificationCmdReceiver extends BroadcastReceiver {
                 Log.v(TAG, logMessage);
                 break;
             case EXTRA_TYPE_MODE:
-                final int notification = intent.getExtras().getInt(EXTRA_NOTIFICATION_ID);
-                //NotificationManagerCompat.from(context).cancel(notification);
                 final int mode = intent.getExtras().getInt(EXTRA_MODE);
                 switch (mode) {
                     case GoProAction.SWITCH_TO_PHOTO:
-                        GoProAction.fireGoProCommand("CM", "01", false, requestQueue);
+                        GoProAction.fireGoProCommand("CM", "01", false, password, requestQueue);
                         notificaionManager.showPhotoNotificaion();
                         break;
                     case GoProAction.SWITCH_TO_VIDEO:
-                        GoProAction.fireGoProCommand("CM", "00", false, requestQueue);
+                        GoProAction.fireGoProCommand("CM", "00", false, password, requestQueue);
                         notificaionManager.showVideoNotificaion();
                         break;
                     case DEFAULT_NOTIFICAION:
@@ -76,19 +75,19 @@ public class GoProNotificationCmdReceiver extends BroadcastReceiver {
                 final int action = intent.getExtras().getInt(EXTRA_ACTION);
                 switch (action) {
                     case GoProAction.TAKE_PHOTO:
-                        GoProAction.fireGoProCommand("SH", "01", false, requestQueue);
+                        GoProAction.fireGoProCommand("SH", "01", false, password, requestQueue);
                         break;
                     case GoProAction.START_VIDEO:
-                        GoProAction.fireGoProCommand("SH", "01", false, requestQueue);
+                        GoProAction.fireGoProCommand("SH", "01", false, password, requestQueue);
                         break;
                     case GoProAction.STOP_VIDEO:
-                        GoProAction.fireGoProCommand("SH", "00", false, requestQueue);
+                        GoProAction.fireGoProCommand("SH", "00", false, password, requestQueue);
                         break;
                     case GoProAction.POWER_ON:
-                        GoProAction.fireGoProCommand("PW", "01", true, requestQueue);
+                        GoProAction.fireGoProCommand("PW", "01", true, password, requestQueue);
                         break;
                     case GoProAction.POWER_OFF:
-                        GoProAction.fireGoProCommand("PW", "00", true, requestQueue);
+                        GoProAction.fireGoProCommand("PW", "00", true, password, requestQueue);
                         break;
                     default:
                         Toast.makeText(context, "not supported", Toast.LENGTH_SHORT).show();

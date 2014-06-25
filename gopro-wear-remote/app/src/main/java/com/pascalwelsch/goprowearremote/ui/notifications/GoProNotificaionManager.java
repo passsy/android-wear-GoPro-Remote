@@ -47,7 +47,7 @@ public class GoProNotificaionManager {
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(getContext().getString(R.string.notification_title_photo))
                         .setContentText(getContext().getString(R.string.notification_content_photo))
-                        .addAction(R.drawable.ic_launcher,
+                        .addAction(android.R.drawable.ic_menu_camera,
                                 getContext().getString(R.string.gopro_action_take_photo),
                                 getActionPendingIntent(GoProAction.TAKE_PHOTO))
                         .addAction(android.R.drawable.ic_menu_revert, getContext().getString(
@@ -63,6 +63,7 @@ public class GoProNotificaionManager {
     }
 
     public void showStartNotification() {
+        // visible on the phone
         NotificationCompat.Builder summaryBuilder =
                 new NotificationCompat.Builder(getContext())
                         .setSmallIcon(R.drawable.ic_launcher)
@@ -78,6 +79,7 @@ public class GoProNotificaionManager {
                 .build();
         mNotificationManager.notify(0, summary);
 
+        // first notification on wear
         NotificationCompat.Builder modeNotificationBuilder =
                 new NotificationCompat.Builder(getContext())
                         .setSmallIcon(R.drawable.ic_launcher)
@@ -89,10 +91,10 @@ public class GoProNotificaionManager {
                         )
                         .addAction(android.R.drawable.ic_menu_camera,
                                 getContext().getString(R.string.gopro_action_mode_photo),
-                                getSwitchModePendingIntent(1, GoProAction.SWITCH_TO_PHOTO))
+                                getSwitchModePendingIntent(GoProAction.SWITCH_TO_PHOTO))
                         .addAction(android.R.drawable.ic_menu_slideshow,
                                 getContext().getString(R.string.gopro_action_mode_video),
-                                getSwitchModePendingIntent(1, GoProAction.SWITCH_TO_VIDEO));
+                                getSwitchModePendingIntent(GoProAction.SWITCH_TO_VIDEO));
 
         Notification mode = new WearableNotifications.Builder(modeNotificationBuilder)
                 .setGroup(GROUP_ID, 1)
@@ -105,10 +107,10 @@ public class GoProNotificaionManager {
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(getContext().getString(R.string.notification_title_more))
                         .setContentText(getContext().getString(R.string.notification_content_more))
-                        .addAction(R.drawable.ic_launcher,
+                        .addAction(android.R.drawable.ic_lock_power_off,
                                 getContext().getString(R.string.gopro_action_on),
                                 getActionPendingIntent(GoProAction.POWER_ON))
-                        .addAction(R.drawable.ic_launcher, getContext().getString(
+                        .addAction(android.R.drawable.ic_media_pause, getContext().getString(
                                         R.string.gopro_action_off),
                                 getActionPendingIntent(GoProAction.POWER_OFF)
                         )
@@ -130,10 +132,10 @@ public class GoProNotificaionManager {
                         .setContentTitle(getContext().getString(R.string.notification_title_video))
                         .setContentText(getContext().getString(
                                 R.string.notification_title_content_video))
-                        .addAction(R.drawable.ic_launcher,
+                        .addAction(android.R.drawable.ic_media_play,
                                 getContext().getString(R.string.gopro_action_start_video),
                                 getActionPendingIntent(GoProAction.START_VIDEO))
-                        .addAction(R.drawable.ic_launcher, getContext().getString(
+                        .addAction(android.R.drawable.ic_media_pause, getContext().getString(
                                         R.string.gopro_action_stop_video),
                                 getActionPendingIntent(GoProAction.STOP_VIDEO)
                         )
@@ -183,12 +185,10 @@ public class GoProNotificaionManager {
         return PendingIntent.getBroadcast(getContext(), (int) (Math.random() * 99999), intent, 0);
     }
 
-    private PendingIntent getSwitchModePendingIntent(final int notificationId,
-            final int switchToPhoto) {
+    private PendingIntent getSwitchModePendingIntent(final int switchToPhoto) {
         final Intent intent = new Intent(getContext(), GoProNotificationCmdReceiver.class);
         intent.putExtra(GoProNotificationCmdReceiver.TYPE,
                 GoProNotificationCmdReceiver.EXTRA_TYPE_MODE);
-        intent.putExtra(GoProNotificationCmdReceiver.EXTRA_NOTIFICATION_ID, notificationId);
         intent.putExtra(GoProNotificationCmdReceiver.EXTRA_MODE, switchToPhoto);
         return PendingIntent.getBroadcast(getContext(), (int) (Math.random() * 99999), intent, 0);
     }

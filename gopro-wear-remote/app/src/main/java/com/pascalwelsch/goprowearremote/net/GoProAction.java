@@ -4,6 +4,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import android.util.Log;
+
 /**
  * @author Pascal Welsch
  * @since 25.06.14.
@@ -24,19 +26,21 @@ public final class GoProAction {
 
     public static final int POWER_OFF = 31;
 
+    private static final String TAG = GoProAction.class.getSimpleName();
+
     private GoProAction() {
 
     }
 
     public static void fireGoProCommand(final String type, final String command,
-            final boolean isBacpacRequest,
-            RequestQueue queue) {
-        final GoProRequest goProRequest = new GoProRequest("joscha0512", type, command,
+            final boolean isBacpacRequest, final String password, RequestQueue queue) {
+
+        final GoProRequest goProRequest = new GoProRequest(password, type, command,
                 isBacpacRequest,
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(final VolleyError volleyError) {
-
+                        Log.v(TAG, volleyError.toString());
                     }
                 }
         );
